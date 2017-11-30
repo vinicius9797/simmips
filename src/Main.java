@@ -205,14 +205,129 @@ public class Main {
     private static void and(int[] ir)
     {
         r(ir);
+        regs[rd] = regs[rs] & regs[rt];
     }
+
     private static void or(int[] ir)
     {
         r(ir);
+        regs[rd] = regs[rs] | regs[rt];
     }
+
+    private static void xor(int[] ir)
+    {
+        r(ir);
+        regs[rd] = regs[rs] ^ regs[rt];
+    }
+
     private static void nor(int[] ir)
     {
         r(ir);
+        regs[rd] = ~(regs[rs] | regs[rt]);
+    }
+
+    private static void andi(int[] ir)
+    {
+        i(ir);
+
+        regs[rt] = regs[rs] & imm;
+    }
+
+    private static void ori(int[] ir)
+    {
+        i(ir);
+
+        regs[rt] = regs[rs] | imm;
+    }
+
+    private static void sll(int[] ir)
+    {
+        r(ir);
+        regs[rd] = regs[rs] << imm;
+    }
+
+    private static void srl(int[] ir)
+    {
+        r(ir);
+        regs[rd] = regs[rs] >> imm;
+    }
+
+    private static void lw(int[] ir)
+    {
+        i(ir);
+        regs[rt] = memory[regs[rs] + imm];
+    }
+
+    private static void sw(int[] ir)
+    {
+        i(ir);
+        memory[regs[rs] + imm] = (byte) regs[rt];
+    }
+
+    private static void lui(int[] ir)
+    {
+        i(ir);
+        //TODO: Correct
+        regs[rt] = imm;
+    }
+
+    private static void beq(int[] ir)
+    {
+        i(ir);
+        if (regs[rs] == regs[rt])
+        {
+            pc = pc + 4 + (imm << 2);
+        }
+    }
+
+    private static void bne(int[] ir)
+    {
+        i(ir);
+        if (regs[rs] != regs[rt])
+        {
+            pc = pc + 4 + (imm << 2);
+        }
+    }
+
+    private static void slt(int[] ir)
+    {
+        r(ir);
+        if (regs[rs] < regs[rt])
+        {
+            regs[rd] = 1;
+        } else {
+            regs[rd] = 0;
+        }
+    }
+
+    private static void slti(int[] ir)
+    {
+        i(ir);
+        if (regs[rs] < imm)
+        {
+            regs[rt] = 1;
+        } else {
+            regs[rt] = 0;
+        }
+    }
+
+    private static void jump(int[] ir)
+    {
+        j(ir);
+        pc = address;
+    }
+
+    private static void jr(int[] ir)
+    {
+        r(ir);
+        pc = regs[rs];
+    }
+
+    private static void jal(int[] ir)
+    {
+        j(ir);
+        regs[31] = pc+4;
+        pc = address;
     }
 
     private static void i(int[] ir)

@@ -17,21 +17,20 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="234" column="41" lean-forward="false" selection-start-line="234" selection-start-column="41" selection-end-line="234" selection-end-column="41" />
+            <state relative-caret-position="-5656">
+              <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#86#117#0" expanded="true" />
                 <element signature="docComment;method#searchInstruction#0;class#Main#0" expanded="false" />
                 <element signature="method#add#0;class#Main#0" expanded="false" />
                 <element signature="method#addi#0;class#Main#0" expanded="false" />
-                <element signature="e#5066#5067#0" expanded="true" />
-                <element signature="e#5087#5088#0" expanded="true" />
-                <element signature="e#5130#5131#0" expanded="true" />
-                <element signature="e#5151#5152#0" expanded="true" />
-                <element signature="e#5195#5196#0" expanded="true" />
-                <element signature="e#5216#5217#0" expanded="true" />
-                <element signature="method#i#0;class#Main#0" expanded="false" />
+                <element signature="method#and#0;class#Main#0" expanded="false" />
+                <element signature="method#or#0;class#Main#0" expanded="false" />
+                <element signature="method#xor#0;class#Main#0" expanded="false" />
+                <element signature="method#nor#0;class#Main#0" expanded="false" />
+                <element signature="method#ori#0;class#Main#0" expanded="false" />
+                <element signature="method#r#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -158,16 +157,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1511973516171</updated>
-      <workItem from="1511973523970" duration="35566000" />
+      <workItem from="1511973523970" duration="40235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35566000" />
+    <option name="totallyTimeSpent" value="40235000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1440" height="872" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -242,21 +240,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="234" column="41" lean-forward="false" selection-start-line="234" selection-start-column="41" selection-end-line="234" selection-end-column="41" />
+        <state relative-caret-position="-5656">
+          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#86#117#0" expanded="true" />
             <element signature="docComment;method#searchInstruction#0;class#Main#0" expanded="false" />
             <element signature="method#add#0;class#Main#0" expanded="false" />
             <element signature="method#addi#0;class#Main#0" expanded="false" />
-            <element signature="e#5066#5067#0" expanded="true" />
-            <element signature="e#5087#5088#0" expanded="true" />
-            <element signature="e#5130#5131#0" expanded="true" />
-            <element signature="e#5151#5152#0" expanded="true" />
-            <element signature="e#5195#5196#0" expanded="true" />
-            <element signature="e#5216#5217#0" expanded="true" />
-            <element signature="method#i#0;class#Main#0" expanded="false" />
+            <element signature="method#and#0;class#Main#0" expanded="false" />
+            <element signature="method#or#0;class#Main#0" expanded="false" />
+            <element signature="method#xor#0;class#Main#0" expanded="false" />
+            <element signature="method#nor#0;class#Main#0" expanded="false" />
+            <element signature="method#ori#0;class#Main#0" expanded="false" />
+            <element signature="method#r#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
