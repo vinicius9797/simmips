@@ -1,5 +1,3 @@
-import com.sun.deploy.util.ArrayUtil;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -8,27 +6,39 @@ import java.util.Arrays;
 public class Main {
 
     private static Byte[] memory = new Byte[16384];
-    private static int[][] op = new int[12][9];
+    private static int[] op = {0, 8, 12, 13, 35, 43, 15, 4, 5, 10, 2, 3};
+    private static int pc = 12288;
+    private static int[] funct = {32, 34, 36, 37, 39, 0, 2, 42, 8, 12};
+    private static int[] regs = new int[32];
+    private static int rd = 0;
+    private static int rs = 0;
+    private static int rt = 0;
+    private static int imm = 0;
+    private static int shamt = 0;
+    private static int address = 0;
 
     public static void main(String[] args) throws IOException {
+
         Arrays.fill(memory, (byte) 0);
-        createOpTable(op);
-        boolean endExecution = false;
-        int pc = 12288;
+        Arrays.fill(regs, 0);
+
         int sp = 12284;
+        int instQuantity = readBytes(args[0], args[1]);;
 
-        readBytes(args[0], args[1]);
-
-        while (!endExecution)
+        while (pc < instQuantity)
         {
             int[] ir = searchInstruction(pc);
             pc += 4;
             swapBytes(ir);
-            System.out.println("Op: "+getInterval(ir, 0, 5));
-            endExecution = true;
+            decodeInstruction(ir);
         }
     }
 
+    /**
+     * Busca instrução na memória a partir do valor de pc
+     * @param pc posição inicial da instrução
+     * @return
+     */
     private static int[] searchInstruction(int pc)
     {
         int[] ir = new int[32];
@@ -63,7 +73,7 @@ public class Main {
         }
     }
 
-    private static void readBytes(String inTextName, String inDataName) throws IOException
+    private static int readBytes(String inTextName, String inDataName) throws IOException
     {
         FileInputStream inText = null;
         FileInputStream inData = null;
@@ -98,6 +108,8 @@ public class Main {
                 inData.close();
             }
         }
+
+        return pc;
     }
 
     private static int getInterval(int[] array, int init, int end)
@@ -118,10 +130,10 @@ public class Main {
             int count = 0;
             for (int j = i*8; j < 8*(i+1); j++) {
                 aux[i][count] = array[j];
-                System.out.print(aux[i][count]);
+//                System.out.print(aux[i][count]);
                 count++;
             }
-            System.out.println();
+//            System.out.println();
         }
 
         int j = 3;
@@ -136,17 +148,90 @@ public class Main {
         System.out.println();
     }
 
-    private static void createOpTable(int[][] op)
+    public static void decodeInstruction(int[] ir)
     {
-        Arrays.fill(op, -1);
-        op[0][1] = 32;
-        op[0][2] = 34;
-        op[0][3] = 36;
-        op[0][4] = 37;
-        op[0][5] = 39;
-        op[0][6] = 0;
-        op[0][7] = 2;
-        op[0][8] = 42;
-        op[0][9] = 8;
+        int irOp = getInterval(ir, 0, 5);
+        int irFunct = -1;
+        if (irOp == 0)
+        {
+            irFunct = getInterval(ir, 25, 31);
+        }
+        System.out.println("irFunct e OP = " + irFunct + " " + irOp);
+
+        switch (irOp)
+        {
+            case 0:
+                switch (irFunct)
+                {
+                    case 32:
+                        add(ir);
+                        break;
+                    case 34:
+                        sub(ir);
+                        break;
+                }
+                break;
+
+            case 8:
+                addi(ir);
+                break;
+        }
+    }
+
+    private static void add(int[] ir)
+    {
+        r(ir);
+        regs[rd] = regs[rs] + regs[rt];
+    }
+
+    private static void sub(int[] ir)
+    {
+        r(ir);
+        regs[rd] = regs[rs] - regs[rt];
+    }
+
+    private static void addi(int[] ir)
+    {
+        i(ir);
+
+        System.out.println("imm = " + imm);
+        System.out.println("rs = " + rs);
+        System.out.println("rt = " + rt);
+
+        regs[rt] = regs[rs] + imm;
+        System.out.println("regsRT = " + regs[rt]);
+    }
+
+    private static void and(int[] ir)
+    {
+        r(ir);
+    }
+    private static void or(int[] ir)
+    {
+        r(ir);
+    }
+    private static void nor(int[] ir)
+    {
+        r(ir);
+    }
+
+    private static void i(int[] ir)
+    {
+        rs = getInterval(ir, 6, 10);
+        rt = getInterval(ir, 11, 15);
+        imm = getInterval(ir, 16, 31);
+    }
+
+    private static void r(int[] ir)
+    {
+        rs = getInterval(ir, 6, 10);
+        rt = getInterval(ir, 11, 15);
+        rd = getInterval(ir, 16, 20);
+        shamt = getInterval(ir, 21, 25);
+    }
+
+    private static void j(int[] ir)
+    {
+        address = getInterval(ir, 6, 31);
     }
 }
