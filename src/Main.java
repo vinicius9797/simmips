@@ -3,16 +3,20 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @SuppressWarnings("Duplicates")
+
+
 public class Main {
 
     private static Byte[] memory = new Byte[16384];
-    private static int[] op = {0, 8, 12, 13, 35, 43, 15, 4, 5, 10, 2, 3};
+    private static int[] op = {0, 8, 12, 13, 35, 43, 15, 4, 5, 10, 2, 3, 32, 40};
     private static int pc = 12288;
-    private static int[] funct = {32, 34, 36, 37, 39, 0, 2, 42, 8, 12};
+    private static int[] funct = {32, 34, 36, 37, 39, 0, 2, 42, 8, 12, 24, 26, 16, 18};
     private static int[] regs = new int[32];
     private static int rd = 0;
     private static int rs = 0;
     private static int rt = 0;
+    private static int hi = 0;
+    private static int lo = 0;
     private static int imm = 0;
     private static int shamt = 0;
     private static int address = 0;
@@ -23,7 +27,7 @@ public class Main {
         Arrays.fill(regs, 0);
 
         int sp = 12284;
-        int instQuantity = readBytes(args[0], args[1]);;
+        int instQuantity = readBytes(args[0], args[1]);
 
         while (pc < instQuantity)
         {
@@ -148,7 +152,7 @@ public class Main {
         System.out.println();
     }
 
-    public static void decodeInstruction(int[] ir)
+    private static void decodeInstruction(int[] ir)
     {
         int irOp = getInterval(ir, 0, 5);
         int irFunct = -1;
@@ -169,11 +173,85 @@ public class Main {
                     case 34:
                         sub(ir);
                         break;
+                    case 24:
+                        mult(ir);
+                        break;
+                    case 26:
+                        divide(ir);
+                        break;
+                    case 16:
+                        mfhi(ir);
+                        break;
+                    case 18:
+                        mflo(ir);
+                        break;
+                    case 36:
+                        and(ir);
+                        break;
+                    case 37:
+                        or(ir);
+                        break;
+                    case 38:
+                        xor(ir);
+                        break;
+                    case 39:
+                        nor(ir);
+                        break;
+                    case 0:
+                        sll(ir);
+                        break;
+                    case 2:
+                        srl(ir);
+                        break;
+                    case 42:
+                        slt(ir);
+                        break;
+                    case 8:
+                        jr(ir);
+                        break;
+                    case 12:
+                        syscall(ir);
                 }
                 break;
 
             case 8:
                 addi(ir);
+                break;
+            case 12:
+                andi(ir);
+                break;
+            case 13:
+                ori(ir);
+                break;
+            case 35:
+                lw(ir);
+                break;
+            case 43:
+                sw(ir);
+                break;
+            case 32:
+                lb(ir);
+                break;
+            case 40:
+                sb(ir);
+                break;
+            case 15:
+                lui(ir);
+                break;
+            case 4:
+                beq(ir);
+                break;
+            case 5:
+                bne(ir);
+                break;
+            case 10:
+                slti(ir);
+                break;
+            case 2:
+                jump(ir);
+                break;
+            case 3:
+                jal(ir);
                 break;
         }
     }
@@ -200,6 +278,32 @@ public class Main {
 
         regs[rt] = regs[rs] + imm;
         System.out.println("regsRT = " + regs[rt]);
+    }
+
+    private static void mult(int[] ir)
+    {
+        r(ir);
+        hi = regs[rs] * regs[rt];
+        lo = regs[rs] * regs[rt];
+    }
+
+    private static void divide(int[] ir)
+    {
+        r(ir);
+        lo = regs[rs] / regs[rt];
+        hi = regs[rs] % regs[rt];
+    }
+
+    private static void mfhi(int[] ir)
+    {
+        r(ir);
+        regs[rd] = hi;
+    }
+
+    private static void mflo(int[] ir)
+    {
+        r(ir);
+        regs[rd] = lo;
     }
 
     private static void and(int[] ir)
@@ -262,6 +366,19 @@ public class Main {
     {
         i(ir);
         memory[regs[rs] + imm] = (byte) regs[rt];
+    }
+
+    private static void lb(int[] ir)
+    {
+        i(ir);
+        regs[rt] = memory[regs[rs]+imm];
+    }
+
+    private static void sb(int[] ir)
+    {
+        i(ir);
+        memory[regs[rs]+imm] = (byte) regs[rt];
+
     }
 
     private static void lui(int[] ir)
@@ -328,6 +445,44 @@ public class Main {
         j(ir);
         regs[31] = pc+4;
         pc = address;
+    }
+
+    private static void syscall(int[] ir)
+    {
+        r(ir);
+
+        //Reg $v0
+        int sysop = regs[2];
+
+        switch (sysop)
+        {
+            //Print Integer stored at $a0
+            case 1:
+                System.out.print(regs[4]);
+                break;
+
+            //Print String stored at $a0
+            case 4:
+                System.out.print(regs[4]);
+                break;
+
+            //Read Integer stored at $v0
+            case 5:
+                System.out.println(sysop);
+                break;
+
+            //Read String stored at $a0
+            case 8:
+                int address = regs[4];
+                int length = regs[5];
+
+                break;
+
+            //Terminate Execution
+            case 10:
+                System.exit(0);
+
+        }
     }
 
     private static void i(int[] ir)
