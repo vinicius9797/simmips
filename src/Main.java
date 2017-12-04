@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 @SuppressWarnings("Duplicates")
@@ -23,20 +25,22 @@ public class Main {
     private static int irFunct = 0;
     private static int irOp = 0;
 
+    private static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
     public static void main(String[] args) throws IOException {
 
         Arrays.fill(memory, (byte) 0);
         Arrays.fill(regs, 0);
 
-        int sp = 12284;
+        regs[29] = 12284;
         int instQuantity = readBytes(args[0], args[1]);
 
         while (pc < instQuantity)
         {
             int[] ir = searchInstruction(pc);
-            pc += 4;
             decodeInstruction(ir);
-            // runInstruction(ir);
+            runInstruction(ir);
+            pc += 4;
         }
     }
 
@@ -87,7 +91,7 @@ public class Main {
         FileInputStream inText = null;
         FileInputStream inData = null;
         int pc = 12288;
-        int sp = 0;
+        regs[29] = 12284;
         int c;
 
         try {
@@ -109,8 +113,8 @@ public class Main {
 
             while ((c = inData.read()) != -1) {
                 byte b = (byte) c;
-                memory[sp] = b;
-                sp++;
+                memory[regs[29]] = b;
+                regs[29]--;
             }
         } finally {
             if (inData != null) {
@@ -120,11 +124,43 @@ public class Main {
 
         return pc;
     }
+    private static boolean complementByTwo(int[] array, int init, int end) {
+        if (array[init] == 1) {
+            for (int i = init; i <= end; i ++)
+                array[i] = array[i] == 1 ? 0 : 1;
 
+            for (int i = end; i >= init; i --) {
+                if (array[i] == 0) {
+                    array[i] = 1;
+                    break;
+                }
+                else {
+                    array[i] = 0;
+                }
+            }
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static void signExtend(int[] array, int init, int end)
+    {
+        int i;
+        for (i = init; i+16 < 32; i++) {
+            array[i] = array[i+16];
+        }
+
+        for (; i < 32; i++) {
+            array[i] = 0;
+        }
+    }
+    
     private static int getInterval(int[] array, int init, int end)
     {
         int pot = 1;
         int result = 0;
+
         for (int i = end; i >= init; i--) {
             result += array[i] * pot;
             pot *= 2;
@@ -156,7 +192,7 @@ public class Main {
     }
 
 
-    private static void runInstruction(int[] ir) {
+    private static void runInstruction(int[] ir) throws IOException {
         switch (irOp)
         {
             case 0:
@@ -365,6 +401,9 @@ public class Main {
 
     private static void lw(int[] ir)
     {
+        System.out.println(regs[29]);
+        System.out.println(pc);
+        signExtend(ir, 7, 31);
         i(ir);
         regs[rt] = memory[regs[rs] + imm];
     }
@@ -400,7 +439,7 @@ public class Main {
         i(ir);
         if (regs[rs] == regs[rt])
         {
-            pc = pc + 4 + (imm << 2);
+            pc = pc + (imm << 2);
         }
     }
 
@@ -451,15 +490,18 @@ public class Main {
     {
         j(ir);
         regs[31] = pc+4;
+        address = address << 2;
         pc = address;
     }
 
-    private static void syscall(int[] ir)
-    {
+    private static void syscall(int[] ir) throws IOException {
         r(ir);
 
         //Reg $v0
         int sysop = regs[2];
+
+
+        System.out.println("sysop = " + sysop);
 
         switch (sysop)
         {
@@ -470,12 +512,17 @@ public class Main {
 
             //Print String stored at $a0
             case 4:
-                System.out.print(regs[4]);
+                regs[29] = 12284-regs[4];
+                for (int i = regs[29]; memory[i] > 0 ; i--) {
+                    System.out.print((char) Integer.parseInt(Byte.toString(memory[i])));
+                }
                 break;
 
             //Read Integer stored at $v0
             case 5:
-                System.out.println(sysop);
+                int x = Integer.parseInt(bf.readLine());
+                regs[2] = x;
+                System.out.println("regs[4] = " + regs[2]);
                 break;
 
             //Read String stored at $a0
@@ -496,7 +543,14 @@ public class Main {
     {
         rs = getInterval(ir, 6, 10);
         rt = getInterval(ir, 11, 15);
+
+        boolean negative = complementByTwo(ir, 16, 31);
         imm = getInterval(ir, 16, 31);
+
+        if (negative)
+        {
+            imm *= -1;
+        }
     }
 
     private static void r(int[] ir)
