@@ -20,6 +20,8 @@ public class Main {
     private static int imm = 0;
     private static int shamt = 0;
     private static int address = 0;
+    private static int irFunct = 0;
+    private static int irOp = 0;
 
     public static void main(String[] args) throws IOException {
 
@@ -33,8 +35,8 @@ public class Main {
         {
             int[] ir = searchInstruction(pc);
             pc += 4;
-            swapBytes(ir);
             decodeInstruction(ir);
+            // runInstruction(ir);
         }
     }
 
@@ -51,6 +53,9 @@ public class Main {
             ubyte = Byte.toUnsignedInt(memory[pc+i]);
             byteToBits(ir, i*8, ubyte);
         }
+
+        swapBytes(ir);
+
 
         /*for (int i = 0; i < 32; i++) {
             if (i!=0 && i % 8 == 0)
@@ -134,10 +139,8 @@ public class Main {
             int count = 0;
             for (int j = i*8; j < 8*(i+1); j++) {
                 aux[i][count] = array[j];
-//                System.out.print(aux[i][count]);
                 count++;
             }
-//            System.out.println();
         }
 
         int j = 3;
@@ -152,16 +155,8 @@ public class Main {
         System.out.println();
     }
 
-    private static void decodeInstruction(int[] ir)
-    {
-        int irOp = getInterval(ir, 0, 5);
-        int irFunct = -1;
-        if (irOp == 0)
-        {
-            irFunct = getInterval(ir, 25, 31);
-        }
-        System.out.println("irFunct e OP = " + irFunct + " " + irOp);
 
+    private static void runInstruction(int[] ir) {
         switch (irOp)
         {
             case 0:
@@ -254,6 +249,18 @@ public class Main {
                 jal(ir);
                 break;
         }
+    }
+    private static void decodeInstruction(int[] ir)
+    {
+        irOp = getInterval(ir, 0, 5);
+        irFunct = -1;
+        if (irOp == 0)
+        {
+            irFunct = getInterval(ir, 25, 31);
+        }
+        System.out.println("irFunct e OP = " + irFunct + " " + irOp);
+
+        
     }
 
     private static void add(int[] ir)
