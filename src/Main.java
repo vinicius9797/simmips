@@ -4,6 +4,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
+/**
+ * Compilação: javac Main.java
+ * Execução: java Main ./programa.text ./programa.data
+ *
+ * Alunos: Vinicius Eduardo Manduca Ferreira
+ *         Larissa Leal
+ */
+
 @SuppressWarnings("Duplicates")
 
 
@@ -33,6 +41,7 @@ public class Main {
         Arrays.fill(regs, 0);
 
         regs[29] = 12284;
+        regs[28] = 0;
         int instQuantity = readBytes(args[0], args[1]);
 
         while (pc < instQuantity)
@@ -40,7 +49,11 @@ public class Main {
             int[] ir = searchInstruction(pc);
             decodeInstruction(ir);
             runInstruction(ir);
-            pc += 4;
+            if ((irOp != 2) && (irOp != 3) && !(irOp == 0 && irFunct == 8))
+            {
+                pc += 4;
+            }
+            //System.out.println(regs[28]);
         }
     }
 
@@ -60,15 +73,6 @@ public class Main {
 
         swapBytes(ir);
 
-
-        /*for (int i = 0; i < 32; i++) {
-            if (i!=0 && i % 8 == 0)
-            {
-                System.out.println();
-            }
-            System.out.print(ir[i]);
-        }*/
-//        System.out.println();
         return ir;
     }
 
@@ -86,12 +90,29 @@ public class Main {
         }
     }
 
+    private static int[] intToBits(int num, int r)
+    {
+        int[] aux = new int[r];
+        for (int i = r-1; i >= 0; i--) {
+            if (num % 2 == 0)
+            {
+                aux[i] = 0;
+                num = num/2;
+            } else {
+                aux[i] = 1;
+                num = (num-1)/2;
+            }
+        }
+
+        return aux;
+    }
+
     private static int readBytes(String inTextName, String inDataName) throws IOException
     {
         FileInputStream inText = null;
         FileInputStream inData = null;
         int pc = 12288;
-        regs[29] = 12284;
+        regs[28] = 0;
         int c;
 
         try {
@@ -111,10 +132,23 @@ public class Main {
         try {
             inData = new FileInputStream(inDataName);
 
+            int zeroCount = 0;
             while ((c = inData.read()) != -1) {
                 byte b = (byte) c;
-                memory[regs[29]] = b;
-                regs[29]--;
+                if (b == 0)
+                {
+                    zeroCount++;
+                } else {
+                    zeroCount = 0;
+                }
+
+                if (zeroCount == 4)
+                {
+                    break;
+                }
+
+                memory[regs[28]] = b;
+                regs[28]++;
             }
         } finally {
             if (inData != null) {
@@ -124,18 +158,28 @@ public class Main {
 
         return pc;
     }
+
     private static boolean complementByTwo(int[] array, int init, int end) {
         if (array[init] == 1) {
             for (int i = init; i <= end; i ++)
                 array[i] = array[i] == 1 ? 0 : 1;
-
+            int vaium = 1;
             for (int i = end; i >= init; i --) {
-                if (array[i] == 0) {
+                if (array[i] == 0 && vaium == 1) {
                     array[i] = 1;
-                    break;
+                    vaium = 0;
                 }
                 else {
-                    array[i] = 0;
+                    if (array[i] == 1 && vaium == 1) {
+                        array[i] = 1;
+                        vaium = 1;
+                    }
+                    else {
+                        if (array[i] == 1 && vaium == 0) {
+                            array[i] = 1;
+                            vaium = 0;
+                        }
+                    }
                 }
             }
             return true;
@@ -186,13 +230,13 @@ public class Main {
             {
                 j--;
             }
-            System.out.print(array[i]);
+//            System.out.print(array[i]);
         }
-        System.out.println();
+//        System.out.println();
     }
 
-
-    private static void runInstruction(int[] ir) throws IOException {
+    private static void runInstruction(int[] ir) throws IOException
+    {
         switch (irOp)
         {
             case 0:
@@ -286,6 +330,7 @@ public class Main {
                 break;
         }
     }
+
     private static void decodeInstruction(int[] ir)
     {
         irOp = getInterval(ir, 0, 5);
@@ -294,7 +339,7 @@ public class Main {
         {
             irFunct = getInterval(ir, 25, 31);
         }
-        System.out.println("irFunct e OP = " + irFunct + " " + irOp);
+//        System.out.println("irFunct e OP = " + irFunct + " " + irOp);
 
         
     }
@@ -315,12 +360,19 @@ public class Main {
     {
         i(ir);
 
-        System.out.println("imm = " + imm);
-        System.out.println("rs = " + rs);
-        System.out.println("rt = " + rt);
+//        System.out.println("imm = " + imm);
+//        System.out.println("rs = " + rs);
+//        System.out.println("rt = " + rt);
+        if(imm < 0){
+        for (int i = 0; i < ir.length; i++) {
+            System.out.print(ir[i]);
+        }
+        System.out.println();}
 
-        regs[rt] = regs[rs] + imm;
-        System.out.println("regsRT = " + regs[rt]);
+            regs[rt] = regs[rs] + imm;
+
+
+//        System.out.println("regsRT = " + regs[rt]);
     }
 
     private static void mult(int[] ir)
@@ -401,8 +453,8 @@ public class Main {
 
     private static void lw(int[] ir)
     {
-        System.out.println(regs[29]);
-        System.out.println(pc);
+//        System.out.println(regs[29]);
+//        System.out.println(pc);
         signExtend(ir, 7, 31);
         i(ir);
         regs[rt] = memory[regs[rs] + imm];
@@ -411,6 +463,9 @@ public class Main {
     private static void sw(int[] ir)
     {
         i(ir);
+//        System.out.println("regs[rs] = " + regs[rs]);
+//        System.out.println("imm = " + imm);
+//        System.out.println("regs[rs]+imm = " + (regs[rs]+imm));
         memory[regs[rs] + imm] = (byte) regs[rt];
     }
 
@@ -437,9 +492,11 @@ public class Main {
     private static void beq(int[] ir)
     {
         i(ir);
+
+
         if (regs[rs] == regs[rt])
         {
-            pc = pc + (imm << 2);
+            pc = pc + 4 + (imm << 2);
         }
     }
 
@@ -477,6 +534,52 @@ public class Main {
     private static void jump(int[] ir)
     {
         j(ir);
+        int[] auxPc = intToBits(pc+4, 32);
+
+        int[] auxAddress = intToBits(address, 26);
+//        System.out.println("address = " + address);
+
+//        System.out.println();
+        int[] pcConcat = new int[4];
+
+//        System.out.println();
+
+        for (int i = 3; i >= 0; i--) {
+            pcConcat[i] = auxPc[i];
+        }
+
+        int[] fullAddres = new int[32];
+        Arrays.fill(fullAddres, 0);
+
+        for (int i = 0; i < 4; i++) {
+            fullAddres[i] = pcConcat[i];
+        }
+
+        for (int i = 4; i < 30; i++) {
+            fullAddres[i] = auxAddress[i-4];
+        }
+
+        fullAddres[30] = 0;
+        fullAddres[31] = 0;
+
+//        System.out.println("********************************************");
+        address = 0;
+        for (int i = 31; i >= 0; i--) {
+            if (fullAddres[i] == 1)
+            {
+                address += Math.pow(2, (-i)+31);
+//                System.out.println("address = " + address);
+            }
+        }
+//        System.out.println("********************************************");
+
+//        for (int i = 0; i < fullAddres.length; i++) {
+//            System.out.print(fullAddres[i]);
+//        }
+//        System.out.println();
+//
+//        System.out.println("address = " + address);
+
         pc = address;
     }
 
@@ -489,8 +592,57 @@ public class Main {
     private static void jal(int[] ir)
     {
         j(ir);
+//        System.out.println(address);
         regs[31] = pc+4;
-        address = address << 2;
+//        System.out.println("regs[31] = " + regs[31]);
+//        System.out.println("pc = " + pc);
+//        System.out.println("pc+4 = " + (pc+4));
+        int[] auxPc = intToBits(pc+4, 32);
+
+        int[] auxAddress = intToBits(address, 26);
+//        System.out.println("address = " + address);
+
+//        System.out.println();
+        int[] pcConcat = new int[4];
+
+//        System.out.println();
+
+        for (int i = 3; i >= 0; i--) {
+            pcConcat[i] = auxPc[i];
+        }
+
+        int[] fullAddres = new int[32];
+        Arrays.fill(fullAddres, 0);
+
+        for (int i = 0; i < 4; i++) {
+            fullAddres[i] = pcConcat[i];
+        }
+
+        for (int i = 4; i < 30; i++) {
+            fullAddres[i] = auxAddress[i-4];
+        }
+
+        fullAddres[30] = 0;
+        fullAddres[31] = 0;
+
+//        System.out.println("********************************************");
+        address = 0;
+        for (int i = 31; i >= 0; i--) {
+            if (fullAddres[i] == 1)
+            {
+                address += Math.pow(2, (-i)+31);
+//                System.out.println("address = " + address);
+            }
+        }
+//        System.out.println("********************************************");
+
+//        for (int i = 0; i < fullAddres.length; i++) {
+//            System.out.print(fullAddres[i]);
+//        }
+//        System.out.println();
+//
+//        System.out.println("address = " + address);
+        
         pc = address;
     }
 
@@ -501,7 +653,7 @@ public class Main {
         int sysop = regs[2];
 
 
-        System.out.println("sysop = " + sysop);
+//        System.out.println("sysop = " + sysop);
 
         switch (sysop)
         {
@@ -512,8 +664,7 @@ public class Main {
 
             //Print String stored at $a0
             case 4:
-                regs[29] = 12284-regs[4];
-                for (int i = regs[29]; memory[i] > 0 ; i--) {
+                for (int i = regs[4]; memory[i] > 0 ; i++) {
                     System.out.print((char) Integer.parseInt(Byte.toString(memory[i])));
                 }
                 break;
@@ -522,7 +673,7 @@ public class Main {
             case 5:
                 int x = Integer.parseInt(bf.readLine());
                 regs[2] = x;
-                System.out.println("regs[4] = " + regs[2]);
+//                System.out.println("regs[4] = " + regs[2]);
                 break;
 
             //Read String stored at $a0

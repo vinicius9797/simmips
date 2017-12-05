@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8861fbca-fa2b-41b2-8709-34962f4186cc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/simmips/Main.class" afterPath="$PROJECT_DIR$/out/production/simmips/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,13 +19,14 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="455" column="5" lean-forward="true" selection-start-line="455" selection-start-column="5" selection-end-line="455" selection-end-column="5" />
+            <state relative-caret-position="130">
+              <caret line="162" column="28" lean-forward="true" selection-start-line="162" selection-start-column="28" selection-end-line="162" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#151#182#0" expanded="true" />
-                <element signature="e#12783#12784#0" expanded="true" />
-                <element signature="e#12831#12832#0" expanded="true" />
+                <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+                <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+                <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+                <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -33,17 +36,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>in.</find>
-      <find>rs</find>
-      <find>sysc</find>
-      <find>syscall</find>
       <find>ir^</find>
       <find>sp</find>
       <find>getInt</find>
-      <find>beq</find>
-      <find>sw</find>
+      <find>System</find>
+      <find>regs</find>
+      <find>regs[4]</find>
+      <find>signEx</find>
       <find>lw</find>
+      <find>la</find>
+      <find>12284</find>
+      <find>regs[2</find>
+      <find>regs[29</find>
+      <find>signExtend</find>
+      <find>sw</find>
+      <find>--</find>
+      <find>-</find>
+      <find>ja</find>
+      <find>(addres</find>
+      <find>println</find>
+      <find>print</find>
+      <find>pc+4</find>
+      <find>pc += 4</find>
       <find>pc</find>
+      <find>regs[29]</find>
+      <find>regs[28]</find>
+      <find>28</find>
+      <find>sysca</find>
+      <find>beq</find>
+      <find>neg</find>
+      <find>addi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -68,10 +90,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="20" />
-    <option name="y" value="52" />
-    <option name="width" value="1400" />
-    <option name="height" value="828" />
+    <option name="y" value="32" />
+    <option name="width" value="720" />
+    <option name="height" value="868" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -158,24 +179,26 @@
       <workItem from="1512076374072" duration="3326000" />
       <workItem from="1512124525222" duration="4502000" />
       <workItem from="1512408022645" duration="11839000" />
+      <workItem from="1512422833020" duration="17773000" />
+      <workItem from="1512440741529" duration="2538000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60594000" />
+    <option name="totallyTimeSpent" value="80905000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1440" height="872" extended-state="6" />
+    <frame x="0" y="32" width="1440" height="872" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32637075" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3262317" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39817232" sideWeight="0.50277776" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31853786" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31824234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -184,7 +207,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49477807" sideWeight="0.49722221" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43275633" sideWeight="0.49722221" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -203,16 +226,14 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>465</line>
-          <properties class="Main" method="slti">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="36" />
+          <line>645</line>
+          <properties />
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="37" />
+      <option name="time" value="65" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -223,9 +244,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -236,9 +258,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -249,9 +272,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -262,9 +286,38 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -304,9 +357,10 @@
           <caret line="507" column="0" lean-forward="false" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -317,9 +371,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -330,9 +385,10 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -368,13 +424,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="455" column="5" lean-forward="true" selection-start-line="455" selection-start-column="5" selection-end-line="455" selection-end-column="5" />
+        <state relative-caret-position="130">
+          <caret line="162" column="28" lean-forward="true" selection-start-line="162" selection-start-column="28" selection-end-line="162" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#151#182#0" expanded="true" />
-            <element signature="e#12783#12784#0" expanded="true" />
-            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="method#signExtend#0;class#Main#0" expanded="false" />
+            <element signature="method#getInterval#0;class#Main#0" expanded="false" />
+            <element signature="method#swapBytes#0;class#Main#0" expanded="false" />
+            <element signature="method#decodeInstruction#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
